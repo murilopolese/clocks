@@ -17,11 +17,13 @@ class Clock
     this.minDegree = min;
     this.size = size;
   }
-  void step()
+  void stepHour()
+  {
+    this.hourDegree++;
+  }
+  void stepMin()
   {
     this.minDegree++;
-    this.hourDegree++;
-    this.render();
   }
   void render()
   {
@@ -29,7 +31,7 @@ class Clock
     // Draw hour arrow
     line(
     this.pos.x, 
-    this.pos.y, 
+    this.pos.y,
     this.pos.x+((this.size*0.8)*cos(radians(this.hourDegree))), 
     this.pos.y+((this.size*0.8)*sin(radians(this.hourDegree)))
       );

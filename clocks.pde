@@ -10,6 +10,8 @@ void setup() {
     int(height/clockSize), 
     clockSize
   );
+  println("largura: "+width/clockSize);
+  println("altura: "+height/clockSize);
 }
 
 void draw() {
