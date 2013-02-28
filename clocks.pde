@@ -19,3 +19,6 @@ void draw() {
   p.step();
 }
 
+void mousePressed() {
+  saveFrame();
+}

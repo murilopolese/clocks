@@ -36,15 +36,15 @@ class Panel
 
   void step()
   {
-    PVector[][] t = d.test();
+    PVector[][] cha = d.two(new PVector(int(2), int(2)));
     for (int i = 0; i < c.length-1; i++)
     {
       for (int j = 0; j < c[0].length-1; j++)
       {
-        if(t[i][j] != null)
+        if (cha[i][j] != null)
         {
-          this.verifyHour(c[i][j], t[i][j].x);
-          this.verifyMin(c[i][j], t[i][j].y);
+          this.verifyHour(c[i][j], cha[i][j].x);
+          this.verifyMin(c[i][j], cha[i][j].y);
         }
         else
         {
