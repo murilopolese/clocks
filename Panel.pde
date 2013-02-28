@@ -36,7 +36,7 @@ class Panel
 
   void step()
   {
-    PVector[][] cha = d.two(new PVector(int(2), int(2)));
+    PVector[][] cha = d.seven(new PVector(int(2), int(2)));
     for (int i = 0; i < c.length-1; i++)
     {
       for (int j = 0; j < c[0].length-1; j++)
