@@ -23,7 +23,7 @@ class Clock
   }
   void stepMin()
   {
-    this.minDegree++;
+    this.minDegree+=2;
   }
   void render()
   {

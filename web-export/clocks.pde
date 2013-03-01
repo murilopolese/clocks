@@ -7,12 +7,11 @@ void setup() {
   frameRate(30);
   smooth();
   p = new Panel(
-    int(width/clockSize), 
+    int(width/clockSize),
     int(height/clockSize),
     new PVector(4, 4),
     clockSize
   );
-  println("init");
   p.setupWord();
 }
 
@@ -20,13 +19,11 @@ void draw() {
   background(255);
   if(second() == 0)
   {
-    println("setup word");
     p.setupWord();
   }
   if(second() == 50)
   {
-    println("clear word");
-    p.clearWord();
+    //p.clearWord();
   }
   p.step();
 }
@@ -55,7 +52,7 @@ class Clock
   }
   void stepMin()
   {
-    this.minDegree++;
+    this.minDegree+=2;
   }
   void render()
   {
@@ -477,7 +474,7 @@ class Panel
     this.s = s;
     this.c = this.setupClocks();
     this.d = new Dictionary();
-    //this.setupWord();
+    this.setupWord();
   }
 
   Clock[][] setupClocks()
@@ -519,8 +516,8 @@ class Panel
     int m = minute();
     int m1 = int(m/10);
     int m2 = int(m%10);
-    this.addCharacter(h1, new PVector(int(this.pos.x+8), int(this.pos.y)));
-    this.addCharacter(h2, new PVector(int(this.pos.x+12), int(this.pos.y)));
+    this.addCharacter(m1, new PVector(int(this.pos.x+8), int(this.pos.y)));
+    this.addCharacter(m2, new PVector(int(this.pos.x+12), int(this.pos.y)));
   }
 
   void step()

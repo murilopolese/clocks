@@ -18,7 +18,7 @@ class Panel
     this.s = s;
     this.c = this.setupClocks();
     this.d = new Dictionary();
-    //this.setupWord();
+    this.setupWord();
   }
 
   Clock[][] setupClocks()
@@ -60,8 +60,8 @@ class Panel
     int m = minute();
     int m1 = int(m/10);
     int m2 = int(m%10);
-    this.addCharacter(h1, new PVector(int(this.pos.x+8), int(this.pos.y)));
-    this.addCharacter(h2, new PVector(int(this.pos.x+12), int(this.pos.y)));
+    this.addCharacter(m1, new PVector(int(this.pos.x+8), int(this.pos.y)));
+    this.addCharacter(m2, new PVector(int(this.pos.x+12), int(this.pos.y)));
   }
 
   void step()
