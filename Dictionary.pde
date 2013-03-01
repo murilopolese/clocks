@@ -1,5 +1,10 @@
 class Dictionary
 { 
+  PVector[][] empty()
+  {
+    PVector[][] m = new PVector[50][30];
+    return m;
+  }
   PVector[][] zero(PVector pos)
   {
     PVector[][] m = new PVector[50][30];

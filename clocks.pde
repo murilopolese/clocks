@@ -4,6 +4,7 @@ int clockSize = 20;
 void setup() {
   size(1000, 600);
   background(255);
+  frameRate(20);
   smooth();
   p = new Panel(
     int(width/clockSize), 
@@ -15,9 +16,13 @@ void setup() {
 
 void draw() {
   background(255);
+  if(second() == 0)
+  {
+    p.setupWord();
+  }
+  if(second() == 50)
+  {
+    p.clearWord();
+  }
   p.step();
-}
-
-void mousePressed() {
-  //saveFrame();
 }

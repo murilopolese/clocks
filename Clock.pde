@@ -10,7 +10,7 @@ class Clock
     this.minDegree = 180;
     this.size = 100;
   };
-  Clock(PVector pos, int hour, int min, float size)
+  Clock(PVector pos, float hour, float min, float size)
   {
     this.pos = pos;
     this.hourDegree = hour;
