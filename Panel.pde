@@ -4,22 +4,27 @@ class Panel
   int w; // Width
   int h; // Height
   int s; // Clock size
+  PVector pos;
   Dictionary d = new Dictionary();
 
-  Panel(int w, int h, int s)
+  ArrayList<PVector[][]> word = new ArrayList<PVector[][]>();
+
+  Panel(int w, int h, PVector pos, int s)
   {
     this.w = w;
     this.h = h;
+    this.pos = pos;
     this.s = s;
-    this.c = this.setup();
+    this.c = this.setupClocks();
+    this.setupWord();
   }
 
-  Clock[][] setup()
+  Clock[][] setupClocks()
   {
     Clock[][] tc = new Clock[this.w][this.h];
-    for (int i = 0; i < tc.length-1; i++)
+    for (int i = 0; i < tc.length; i++)
     {
-      for (int j = 0; j < tc[0].length-1; j++)
+      for (int j = 0; j < tc[0].length; j++)
       {
         tc[i][j] = new Clock();
         tc[i][j].size = this.s;
@@ -34,26 +39,52 @@ class Panel
     return tc;
   }
 
-  void step()
+  void setupWord()
   {
-    PVector[][] cha = d.nine(new PVector(int(2), int(2)));
-    for (int i = 0; i < c.length-1; i++)
+    word.add(d.two(new PVector(int(this.pos.x), int(this.pos.y))));
+    word.add(d.three(new PVector(int(this.pos.x+4), int(this.pos.y))));
+    word.add(d.five(new PVector(int(this.pos.x+8), int(this.pos.y))));
+    word.add(d.two(new PVector(int(this.pos.x+12), int(this.pos.y))));
+  }
+
+  void step()
+  {    
+    for (int k = 0; k < word.size(); k++)
     {
-      for (int j = 0; j < c[0].length-1; j++)
+      for (int i = int(this.pos.x)+(k*4); i < this.pos.x+(k*4)+4; i++)
       {
-        if (cha[i][j] != null)
+        for (int j = int(this.pos.y); j < this.pos.y+6; j++)
         {
-          this.verifyHour(c[i][j], cha[i][j].x);
-          this.verifyMin(c[i][j], cha[i][j].y);
+          this.verifyCharacter(word.get(k)[i][j], c[i][j]);
         }
-        else
+      }
+    }
+    
+    for(int i = 0; i < this.c.length; i++)
+    {
+      for (int j = 0; j < this.c[0].length; j++)
+      {
+        if(
+          ((i<this.pos.x) || (i>(this.pos.x+15))) ||
+          ((j<this.pos.y) || (j>(this.pos.y+5)))
+        )
         {
           this.c[i][j].stepHour();
           this.c[i][j].stepMin();
+          this.c[i][j].render();
         }
-        this.c[i][j].render();
       }
     }
+  }
+
+  private void verifyCharacter(PVector cha, Clock clock)
+  {
+    if (cha != null)
+    {
+      this.verifyHour(clock, cha.x);
+      this.verifyMin(clock, cha.y);
+    }
+    clock.render();
   }
 
   private void verifyHour(Clock c, float d)

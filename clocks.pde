@@ -7,11 +7,10 @@ void setup() {
   smooth();
   p = new Panel(
     int(width/clockSize), 
-    int(height/clockSize), 
+    int(height/clockSize),
+    new PVector(4, 4),
     clockSize
   );
-  println("largura: "+width/clockSize);
-  println("altura: "+height/clockSize);
 }
 
 void draw() {
