@@ -4,7 +4,7 @@ int clockSize = 20;
 void setup() {
   size(1000, 600);
   background(255);
-  frameRate(20);
+  frameRate(30);
   smooth();
   p = new Panel(
     int(width/clockSize), 
@@ -12,19 +12,23 @@ void setup() {
     new PVector(4, 4),
     clockSize
   );
+  println("init");
+  p.setupWord();
 }
 
 void draw() {
   background(255);
   if(second() == 0)
   {
+    println("setup word");
     p.setupWord();
   }
   if(second() == 50)
   {
+    println("clear word");
     p.clearWord();
   }
-  //p.step();
+  p.step();
 }
 class Clock 
 {
@@ -38,7 +42,7 @@ class Clock
     this.minDegree = 180;
     this.size = 100;
   };
-  Clock(PVector pos, int hour, int min, float size)
+  Clock(PVector pos, float hour, float min, float size)
   {
     this.pos = pos;
     this.hourDegree = hour;
@@ -60,15 +64,15 @@ class Clock
     line(
     this.pos.x, 
     this.pos.y,
-    this.pos.x+((this.size*0.8)*cos(radians(this.hourDegree))), 
-    this.pos.y+((this.size*0.8)*sin(radians(this.hourDegree)))
+    this.pos.x+((this.size*0.7)*cos(radians(this.hourDegree))), 
+    this.pos.y+((this.size*0.7)*sin(radians(this.hourDegree)))
       );
     // Draw minute arrow
     line(
     this.pos.x, 
     this.pos.y, 
-    this.pos.x+(this.size*cos(radians(this.minDegree))), 
-    this.pos.y+(this.size*sin(radians(this.minDegree)))
+    this.pos.x+((this.size*0.9)*cos(radians(this.minDegree))), 
+    this.pos.y+((this.size*0.9)*sin(radians(this.minDegree)))
       );
   }
 }
@@ -460,7 +464,8 @@ class Panel
   int h; // Height
   int s; // Clock size
   PVector pos;
-  Dictionary d;;
+  Dictionary d;
+  ;
 
   ArrayList<PVector[][]> word = new ArrayList<PVector[][]>();
 
@@ -472,7 +477,7 @@ class Panel
     this.s = s;
     this.c = this.setupClocks();
     this.d = new Dictionary();
-    this.setupWord();
+    //this.setupWord();
   }
 
   Clock[][] setupClocks()
@@ -506,30 +511,16 @@ class Panel
   void setupWord()
   {
     word.clear();
-    String hour = str(hour());
-    String[] time = hour.split("");
-    if(time.length>2)
-    {
-      this.addCharacter(Integer.parseInt(time[1]), new PVector(int(this.pos.x), int(this.pos.y)));
-      this.addCharacter(Integer.parseInt(time[2]), new PVector(int(this.pos.x+4), int(this.pos.y)));
-    }
-    else
-    {
-      this.addCharacter(0, new PVector(int(this.pos.x), int(this.pos.y)));
-      this.addCharacter(Integer.parseInt(time[1]), new PVector(int(this.pos.x+4), int(this.pos.y)));
-    }
-    String minute = str(minute());
-    time = minute.split("");
-    if(time.length>2)
-    {
-      this.addCharacter(Integer.parseInt(time[1]), new PVector(int(this.pos.x+8), int(this.pos.y)));
-      this.addCharacter(Integer.parseInt(time[2]), new PVector(int(this.pos.x+12), int(this.pos.y)));
-    }
-    else
-    {
-      this.addCharacter(0, new PVector(int(this.pos.x+8), int(this.pos.y)));
-      this.addCharacter(Integer.parseInt(time[1]), new PVector(int(this.pos.x+12), int(this.pos.y)));
-    }
+    int h = hour();
+    int h1 = int(h/10);
+    int h2 = int(h%10);
+    this.addCharacter(h1, new PVector(int(this.pos.x), int(this.pos.y)));
+    this.addCharacter(h2, new PVector(int(this.pos.x+4), int(this.pos.y)));
+    int m = minute();
+    int m1 = int(m/10);
+    int m2 = int(m%10);
+    this.addCharacter(h1, new PVector(int(this.pos.x+8), int(this.pos.y)));
+    this.addCharacter(h2, new PVector(int(this.pos.x+12), int(this.pos.y)));
   }
 
   void step()
@@ -601,8 +592,8 @@ class Panel
       c.stepMin();
     }
   }
-  
-    void addCharacter(int v, PVector pos)
+
+  void addCharacter(int v, PVector pos)
   {
     switch(v)
     {

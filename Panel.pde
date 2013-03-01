@@ -5,7 +5,8 @@ class Panel
   int h; // Height
   int s; // Clock size
   PVector pos;
-  Dictionary d;;
+  Dictionary d;
+  ;
 
   ArrayList<PVector[][]> word = new ArrayList<PVector[][]>();
 
@@ -17,7 +18,7 @@ class Panel
     this.s = s;
     this.c = this.setupClocks();
     this.d = new Dictionary();
-    this.setupWord();
+    //this.setupWord();
   }
 
   Clock[][] setupClocks()
@@ -51,30 +52,16 @@ class Panel
   void setupWord()
   {
     word.clear();
-    String hour = str(hour());
-    String[] time = hour.split("");
-    if(time.length>2)
-    {
-      this.addCharacter(Integer.parseInt(time[1]), new PVector(int(this.pos.x), int(this.pos.y)));
-      this.addCharacter(Integer.parseInt(time[2]), new PVector(int(this.pos.x+4), int(this.pos.y)));
-    }
-    else
-    {
-      this.addCharacter(0, new PVector(int(this.pos.x), int(this.pos.y)));
-      this.addCharacter(Integer.parseInt(time[1]), new PVector(int(this.pos.x+4), int(this.pos.y)));
-    }
-    String minute = str(minute());
-    time = minute.split("");
-    if(time.length>2)
-    {
-      this.addCharacter(Integer.parseInt(time[1]), new PVector(int(this.pos.x+8), int(this.pos.y)));
-      this.addCharacter(Integer.parseInt(time[2]), new PVector(int(this.pos.x+12), int(this.pos.y)));
-    }
-    else
-    {
-      this.addCharacter(0, new PVector(int(this.pos.x+8), int(this.pos.y)));
-      this.addCharacter(Integer.parseInt(time[1]), new PVector(int(this.pos.x+12), int(this.pos.y)));
-    }
+    int h = hour();
+    int h1 = int(h/10);
+    int h2 = int(h%10);
+    this.addCharacter(h1, new PVector(int(this.pos.x), int(this.pos.y)));
+    this.addCharacter(h2, new PVector(int(this.pos.x+4), int(this.pos.y)));
+    int m = minute();
+    int m1 = int(m/10);
+    int m2 = int(m%10);
+    this.addCharacter(h1, new PVector(int(this.pos.x+8), int(this.pos.y)));
+    this.addCharacter(h2, new PVector(int(this.pos.x+12), int(this.pos.y)));
   }
 
   void step()
@@ -146,8 +133,8 @@ class Panel
       c.stepMin();
     }
   }
-  
-    void addCharacter(int v, PVector pos)
+
+  void addCharacter(int v, PVector pos)
   {
     switch(v)
     {

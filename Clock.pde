@@ -32,15 +32,15 @@ class Clock
     line(
     this.pos.x, 
     this.pos.y,
-    this.pos.x+((this.size*0.8)*cos(radians(this.hourDegree))), 
-    this.pos.y+((this.size*0.8)*sin(radians(this.hourDegree)))
+    this.pos.x+((this.size*0.7)*cos(radians(this.hourDegree))), 
+    this.pos.y+((this.size*0.7)*sin(radians(this.hourDegree)))
       );
     // Draw minute arrow
     line(
     this.pos.x, 
     this.pos.y, 
-    this.pos.x+(this.size*cos(radians(this.minDegree))), 
-    this.pos.y+(this.size*sin(radians(this.minDegree)))
+    this.pos.x+((this.size*0.9)*cos(radians(this.minDegree))), 
+    this.pos.y+((this.size*0.9)*sin(radians(this.minDegree)))
       );
   }
 }
